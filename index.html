@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thomas Pulickal Joseph | Senior Software Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--primary:#6366f1;--accent:#22d3ee;--accent2:#a78bfa;--bg-dark:#030712;--bg-card:rgba(15,23,42,0.8);--text:#f1f5f9;--text-muted:#94a3b8;--glow:0 0 20px rgba(99,102,241,0.3)}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg-dark);color:var(--text);overflow-x:hidden}
+#particles-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.scroll-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:200;width:0;transition:width 0.1s}
+.nav{position:fixed;top:0;width:100%;z-index:100;padding:1rem 2rem;background:rgba(3,7,18,0.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(99,102,241,0.2);transition:all 0.3s}
+.nav.scrolled{box-shadow:var(--glow)}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.nav-logo{font-family:'Orbitron',sans-serif;font-size:1.2rem;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:1.5rem;list-style:none}
+.nav-links a{color:var(--text-muted);text-decoration:none;font-size:0.85rem;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;transition:all 0.3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--accent);transition:width 0.3s}
+.nav-links a:hover,.nav-links a.active{color:var(--accent)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-toggle{display:none;cursor:pointer;color:var(--text);font-size:1.3rem}
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;text-align:center;padding:2rem}
+.hero-content{max-width:800px}
+.hero-badge{display:inline-block;padding:0.4rem 1.2rem;border:1px solid var(--accent);border-radius:50px;font-size:0.75rem;color:var(--accent);text-transform:uppercase;letter-spacing:2px;margin-bottom:1.5rem;animation:pulse-border 2s infinite}
+@keyframes pulse-border{0%,100%{box-shadow:0 0 5px rgba(34,211,238,0.3)}50%{box-shadow:0 0 20px rgba(34,211,238,0.6)}}
+.hero h1{font-family:'Orbitron',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;line-height:1.1;margin-bottom:1rem;background:linear-gradient(135deg,#fff 0%,var(--accent) 50%,var(--accent2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradient-shift 3s ease infinite;background-size:200% 200%}
+@keyframes gradient-shift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.hero-subtitle{font-size:1.2rem;color:var(--text-muted);margin-bottom:0.5rem}
+.typing-text{font-size:1.1rem;color:var(--accent);min-height:1.5em;margin-bottom:2rem}
+.typing-text .cursor{display:inline-block;width:2px;height:1.2em;background:var(--accent);margin-left:2px;animation:blink 0.8s infinite;vertical-align:text-bottom}
+@keyframes blink{0%,50%{opacity:1}51%,100%{opacity:0}}
+.hero-cta{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2rem}
+.btn{padding:0.8rem 1.8rem;border-radius:50px;font-size:0.9rem;font-weight:600;text-decoration:none;transition:all 0.3s;display:inline-flex;align-items:center;gap:0.5rem}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--accent2));color:white;border:none}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(99,102,241,0.4)}
+.btn-outline{border:1px solid var(--accent);color:var(--accent);background:transparent}
+.btn-outline:hover{background:rgba(34,211,238,0.1);transform:translateY(-3px)}
+.section{position:relative;z-index:1;padding:6rem 2rem;max-width:1100px;margin:0 auto}
+.section-header{text-align:center;margin-bottom:4rem}
+.section-header h2{font-family:'Orbitron',sans-serif;font-size:2.5rem;font-weight:700;margin-bottom:0.5rem;background:linear-gradient(135deg,var(--text),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.section-header p{color:var(--text-muted);font-size:1rem}
+.section-divider{width:60px;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));margin:1rem auto;border-radius:2px}
+.reveal{opacity:0;transform:translateY(40px);transition:all 0.8s cubic-bezier(0.16,1,0.3,1)}
+.reveal.active{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-60px);transition:all 0.8s cubic-bezier(0.16,1,0.3,1)}
+.reveal-left.active{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(60px);transition:all 0.8s cubic-bezier(0.16,1,0.3,1)}
+.reveal-right.active{opacity:1;transform:translateX(0)}
+</style>
+</head>
+<style>
+.timeline{position:relative;padding:2rem 0}
+.timeline::before{content:'';position:absolute;left:50%;transform:translateX(-50%);top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--accent),var(--accent2),transparent)}
+.timeline-item{display:flex;justify-content:flex-end;padding-right:50%;position:relative;margin-bottom:3rem}
+.timeline-item:nth-child(even){justify-content:flex-start;padding-right:0;padding-left:50%}
+.timeline-item::before{content:'';position:absolute;left:50%;transform:translateX(-50%);top:1.5rem;width:16px;height:16px;border-radius:50%;background:var(--accent);border:3px solid var(--bg-dark);box-shadow:0 0 15px rgba(34,211,238,0.5);z-index:2}
+.timeline-content{background:var(--bg-card);backdrop-filter:blur(10px);border:1px solid rgba(99,102,241,0.2);border-radius:16px;padding:1.5rem;margin:0 2rem;transition:all 0.4s;max-width:450px}
+.timeline-content:hover{transform:translateY(-5px) scale(1.02);border-color:var(--accent);box-shadow:0 20px 40px rgba(0,0,0,0.3),0 0 20px rgba(34,211,238,0.1)}
+.timeline-content h3{font-size:1.1rem;margin-bottom:0.3rem;color:var(--text)}
+.timeline-content .company{color:var(--accent);font-size:0.9rem;font-weight:600;margin-bottom:0.2rem}
+.timeline-content .period{color:var(--text-muted);font-size:0.8rem;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.timeline-content ul{list-style:none;padding:0}
+.timeline-content li{color:var(--text-muted);font-size:0.85rem;margin-bottom:0.5rem;padding-left:1.2rem;position:relative}
+.timeline-content li::before{content:'';position:absolute;left:0;top:0.5em;width:6px;height:6px;border-radius:50%;background:var(--accent2)}
+.skills-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem}
+.skill-card{background:var(--bg-card);backdrop-filter:blur(10px);border:1px solid rgba(99,102,241,0.15);border-radius:16px;padding:2rem;transition:all 0.4s;position:relative;overflow:hidden}
+.skill-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(99,102,241,0.05),rgba(34,211,238,0.05));opacity:0;transition:opacity 0.4s}
+.skill-card:hover::before{opacity:1}
+.skill-card:hover{transform:translateY(-8px) rotateX(2deg);border-color:var(--accent);box-shadow:0 20px 40px rgba(0,0,0,0.3),0 0 30px rgba(34,211,238,0.1)}
+.skill-card-icon{font-size:2rem;margin-bottom:1rem;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.skill-card h4{font-size:1rem;margin-bottom:1rem;color:var(--text)}
+.skill-bar-container{margin-bottom:0.8rem}
+.skill-bar-label{display:flex;justify-content:space-between;font-size:0.8rem;color:var(--text-muted);margin-bottom:0.3rem}
+.skill-bar{height:6px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden}
+.skill-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0;transition:width 1.5s cubic-bezier(0.16,1,0.3,1)}
+.skill-tags-wrap{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.5rem}
+.skill-pill{padding:0.3rem 0.8rem;border-radius:20px;font-size:0.75rem;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.3);color:var(--accent);transition:all 0.3s;cursor:default}
+.skill-pill:hover{background:rgba(34,211,238,0.2);transform:scale(1.1);box-shadow:0 0 10px rgba(34,211,238,0.3)}
+.edu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2rem}
+.edu-card{background:var(--bg-card);backdrop-filter:blur(10px);border:1px solid rgba(99,102,241,0.15);border-radius:16px;padding:2rem;transition:all 0.4s;position:relative;overflow:hidden}
+.edu-card:hover{transform:translateY(-5px);border-color:var(--accent);box-shadow:0 15px 30px rgba(0,0,0,0.3)}
+.edu-card i{font-size:1.5rem;color:var(--accent);margin-bottom:1rem;display:block}
+.edu-card h3{font-size:1rem;margin-bottom:0.3rem}
+.edu-card .school{color:var(--accent);font-size:0.9rem;margin-bottom:0.2rem}
+.edu-card .details{color:var(--text-muted);font-size:0.85rem}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:2rem;margin:4rem 0;text-align:center}
+.stat-item h3{font-family:'Orbitron',sans-serif;font-size:2.5rem;color:var(--accent);margin-bottom:0.3rem}
+.stat-item p{color:var(--text-muted);font-size:0.85rem;text-transform:uppercase;letter-spacing:1px}
+.footer{position:relative;z-index:1;text-align:center;padding:3rem 2rem;border-top:1px solid rgba(99,102,241,0.2)}
+.footer-links{display:flex;justify-content:center;gap:1.5rem;margin-bottom:1.5rem}
+.footer-links a{color:var(--text-muted);font-size:1.5rem;transition:all 0.3s;text-decoration:none}
+.footer-links a:hover{color:var(--accent);transform:translateY(-3px)}
+.footer p{color:var(--text-muted);font-size:0.85rem}
+@media(max-width:768px){
+.nav-toggle{display:block}
+.nav-links{position:fixed;top:60px;right:-100%;width:70%;height:calc(100vh - 60px);background:rgba(3,7,18,0.98);flex-direction:column;padding:2rem;gap:1.5rem;transition:right 0.3s}
+.nav-links.open{right:0}
+.timeline::before{left:0}
+.timeline-item,.timeline-item:nth-child(even){padding-left:2rem;padding-right:0;justify-content:flex-start}
+.timeline-item::before{left:0}
+.timeline-content{margin:0;max-width:100%}
+.hero h1{font-size:2rem}
+.stats{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+<body>
+<div class="scroll-progress" id="scrollProgress"></div>
+<canvas id="particles-canvas"></canvas>
+
+<nav class="nav" id="navbar">
+    <div class="nav-inner">
+        <div class="nav-logo">TPJ</div>
+        <div class="nav-toggle" id="navToggle"><i class="fas fa-bars"></i></div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<section class="hero" id="hero">
+    <div class="hero-content">
+        <div class="hero-badge">Available for Opportunities</div>
+        <h1>Thomas Pulickal Joseph</h1>
+        <p class="hero-subtitle">Senior Software Engineer</p>
+        <div class="typing-text" id="typingText"><span class="cursor"></span></div>
+        <div class="hero-cta">
+            <a href="mailto:pjosephthomas98@gmail.com" class="btn btn-primary"><i class="fas fa-envelope"></i> Get in Touch</a>
+            <a href="https://www.linkedin.com/in/thomas-pulickal-joseph-7b934b192/" target="_blank" class="btn btn-outline"><i class="fab fa-linkedin"></i> LinkedIn</a>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="about">
+    <div class="section-header reveal">
+        <h2>About Me</h2>
+        <div class="section-divider"></div>
+        <p>Building the future of industrial automation</p>
+    </div>
+    <div class="stats reveal">
+        <div class="stat-item">
+            <h3 class="counter" data-target="5" data-suffix="+">0</h3>
+            <p>Years Experience</p>
+        </div>
+        <div class="stat-item">
+            <h3 class="counter" data-target="1000" data-suffix="+">0</h3>
+            <p>Transactions/Sec</p>
+        </div>
+        <div class="stat-item">
+            <h3 class="counter" data-target="30" data-suffix="%">0</h3>
+            <p>Throughput Gain</p>
+        </div>
+        <div class="stat-item">
+            <h3 class="counter" data-target="40" data-suffix="%">0</h3>
+            <p>Downtime Cut</p>
+        </div>
+        <div class="stat-item">
+            <h3 class="counter" data-target="15" data-suffix="+">0</h3>
+            <p>Technologies</p>
+        </div>
+        <div class="stat-item">
+            <h3 class="counter" data-target="8" data-suffix="+">0</h3>
+            <p>Languages</p>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="experience">
+    <div class="section-header reveal">
+        <h2>Experience</h2>
+        <div class="section-divider"></div>
+        <p>My professional journey in software engineering</p>
+    </div>
+    <div class="timeline">
+        <div class="timeline-item reveal-left">
+            <div class="timeline-content">
+                <h3>Senior Software Engineer</h3>
+                <p class="company"><i class="fas fa-building"></i> Communications Test Design, Inc (CTDI)</p>
+                <p class="period"><i class="fas fa-calendar"></i> Jan 2026 &ndash; Present | West Chester, PA</p>
+                <ul>
+                    <li>Built real-time C# communication framework using TPL, sustaining 1,000+ transactions/sec via TwinCAT ADS/AMS</li>
+                    <li>Architected automated test cells with Beckhoff xPlanar motion platforms</li>
+                    <li>Engineered machine-vision inspection systems for automated display grading</li>
+                    <li>Achieved 30% throughput increase and 40% downtime reduction</li>
+                    <li>Deployed cross-platform telemetry using Avalonia UI and ASP.NET Core</li>
+                </ul>
+            </div>
+        </div>
+        <div class="timeline-item reveal-right">
+            <div class="timeline-content">
+                <h3>Software Engineer</h3>
+                <p class="company"><i class="fas fa-building"></i> Communications Test Design, Inc (CTDI)</p>
+                <p class="period"><i class="fas fa-calendar"></i> Aug 2023 &ndash; Dec 2025 | West Chester, PA</p>
+                <ul>
+                    <li>Developed modular automation platforms using C#, ASP.NET Core, and Knockout.js</li>
+                    <li>Built web-based phone testing software for high-volume device processing</li>
+                    <li>Designed real-time control dashboards for automation monitoring</li>
+                    <li>Implemented REST APIs for test sequencer orchestration</li>
+                </ul>
+            </div>
+        </div>
+        <div class="timeline-item reveal-left">
+            <div class="timeline-content">
+                <h3>Software Engineer</h3>
+                <p class="company"><i class="fas fa-building"></i> MPundit Solutions Pvt Ltd</p>
+                <p class="period"><i class="fas fa-calendar"></i> Sep 2020 &ndash; Jul 2021 | Guntur, India</p>
+                <ul>
+                    <li>Developed microservices and device-control APIs using C# .NET and PostgreSQL</li>
+                    <li>Designed optimized SQL schemas for high-performance analytics</li>
+                    <li>Contributed to full-stack projects in Agile Scrum environments</li>
+                </ul>
+            </div>
+        </div>
+        <div class="timeline-item reveal-right">
+            <div class="timeline-content">
+                <h3>Software Engineer Intern</h3>
+                <p class="company"><i class="fas fa-building"></i> Engineer's Hub</p>
+                <p class="period"><i class="fas fa-calendar"></i> Jun 2019 &ndash; Aug 2019 | Hyderabad, India</p>
+                <ul>
+                    <li>Built hospital management system with PHP and MongoDB</li>
+                    <li>Streamlined data exchange workflows and improved UI reliability</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="skills">
+    <div class="section-header reveal">
+        <h2>Technical Arsenal</h2>
+        <div class="section-divider"></div>
+        <p>Technologies and tools I work with daily</p>
+    </div>
+    <div class="skills-container">
+        <div class="skill-card reveal">
+            <div class="skill-card-icon"><i class="fas fa-code"></i></div>
+            <h4>Programming Languages</h4>
+            <div class="skill-bar-container">
+                <div class="skill-bar-label"><span>C# / .NET</span><span>95%</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" data-width="95"></div></div>
+            </div>
+            <div class="skill-bar-container">
+                <div class="skill-bar-label"><span>Python</span><span>85%</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" data-width="85"></div></div>
+            </div>
+            <div class="skill-bar-container">
+                <div class="skill-bar-label"><span>Structured Text (PLC)</span><span>90%</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" data-width="90"></div></div>
+            </div>
+            <div class="skill-tags-wrap">
+                <span class="skill-pill">C++</span>
+                <span class="skill-pill">Java</span>
+                <span class="skill-pill">PHP</span>
+                <span class="skill-pill">SQL</span>
+                <span class="skill-pill">C</span>
+            </div>
+        </div>
+        <div class="skill-card reveal">
+            <div class="skill-card-icon"><i class="fas fa-robot"></i></div>
+            <h4>Robotics &amp; Automation</h4>
+            <div class="skill-bar-container">
+                <div class="skill-bar-label"><span>Beckhoff TwinCAT 3</span><span>92%</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" data-width="92"></div></div>
+            </div>
+            <div class="skill-bar-container">
+                <div class="skill-bar-label"><span>EtherCAT / xPlanar</span><span>88%</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" data-width="88"></div></div>
+            </div>
+            <div class="skill-bar-container">
+                <div class="skill-bar-label"><span>Real-Time Systems</span><span>85%</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" data-width="85"></div></div>
+            </div>
+            <div class="skill-tags-wrap">
+                <span class="skill-pill">Motion Control</span>
+                <span class="skill-pill">Machine Vision</span>
+                <span class="skill-pill">PLC Programming</span>
+            </div>
+        </div>
+        <div class="skill-card reveal">
+            <div class="skill-card-icon"><i class="fas fa-server"></i></div>
+            <h4>Backend &amp; Web</h4>
+            <div class="skill-bar-container">
+                <div class="skill-bar-label"><span>ASP.NET Core</span><span>93%</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" data-width="93"></div></div>
+            </div>
+            <div class="skill-bar-container">
+                <div class="skill-bar-label"><span>REST API Design</span><span>90%</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" data-width="90"></div></div>
+            </div>
+            <div class="skill-bar-container">
+                <div class="skill-bar-label"><span>JavaScript / React</span><span>80%</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" data-width="80"></div></div>
+            </div>
+            <div class="skill-tags-wrap">
+                <span class="skill-pill">Avalonia UI</span>
+                <span class="skill-pill">Knockout.js</span>
+                <span class="skill-pill">Apache</span>
+                <span class="skill-pill">PHP</span>
+            </div>
+        </div>
+        <div class="skill-card reveal">
+            <div class="skill-card-icon"><i class="fas fa-tools"></i></div>
+            <h4>DevOps &amp; Databases</h4>
+            <div class="skill-bar-container">
+                <div class="skill-bar-label"><span>Git / GitHub</span><span>90%</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" data-width="90"></div></div>
+            </div>
+            <div class="skill-bar-container">
+                <div class="skill-bar-label"><span>PostgreSQL / MySQL</span><span>85%</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" data-width="85"></div></div>
+            </div>
+            <div class="skill-bar-container">
+                <div class="skill-bar-label"><span>CI/CD / Octopus Deploy</span><span>82%</span></div>
+                <div class="skill-bar"><div class="skill-bar-fill" data-width="82"></div></div>
+            </div>
+            <div class="skill-tags-wrap">
+                <span class="skill-pill">MongoDB</span>
+                <span class="skill-pill">SQLite</span>
+                <span class="skill-pill">Postman</span>
+                <span class="skill-pill">Jira</span>
+                <span class="skill-pill">Visual Studio</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="education">
+    <div class="section-header reveal">
+        <h2>Education &amp; Certifications</h2>
+        <div class="section-divider"></div>
+        <p>Academic foundation and continuous learning</p>
+    </div>
+    <div class="edu-grid">
+        <div class="edu-card reveal">
+            <div class="edu-card-inner">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>Master of Science in Computer Science</h3>
+                <p class="school">University of Houston-Clear Lake</p>
+                <p class="details">May 2023 | Houston, TX | GPA: 3.70 / 4.00</p>
+            </div>
+        </div>
+        <div class="edu-card reveal">
+            <div class="edu-card-inner">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>B.Tech in Computer Science &amp; Engineering</h3>
+                <p class="school">Jawaharlal Nehru Technological University</p>
+                <p class="details">Sep 2020 | Hyderabad, India | GPA: 7.75 / 10.00</p>
+            </div>
+        </div>
+        <div class="edu-card reveal">
+            <div class="edu-card-inner">
+                <i class="fas fa-certificate"></i>
+                <h3>Beckhoff TwinCAT 3 Robotics (TR3025)</h3>
+                <p class="school">Beckhoff Automation</p>
+                <p class="details">Feb 2025 | I/O, Communication, System Manager, PLC Programming</p>
+            </div>
+        </div>
+        <div class="edu-card reveal">
+            <div class="edu-card-inner">
+                <i class="fas fa-certificate"></i>
+                <h3>IBM Data Science Professional</h3>
+                <p class="school">IBM / Coursera</p>
+                <p class="details">Jul 2022 | Python, Analytics, ML Fundamentals</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="contact">
+    <div class="section-header reveal">
+        <h2>Let's Connect</h2>
+        <div class="section-divider"></div>
+        <p>Open to new opportunities and collaborations</p>
+    </div>
+    <div style="text-align:center" class="reveal">
+        <div class="hero-cta">
+            <a href="mailto:pjosephthomas98@gmail.com" class="btn btn-primary"><i class="fas fa-envelope"></i> pjosephthomas98@gmail.com</a>
+            <a href="tel:+13467542867" class="btn btn-outline"><i class="fas fa-phone"></i> +1 (346) 754-2867</a>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-links">
+        <a href="mailto:pjosephthomas98@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        <a href="https://www.linkedin.com/in/thomas-pulickal-joseph-7b934b192/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="tel:+13467542867" aria-label="Phone"><i class="fas fa-phone"></i></a>
+    </div>
+    <p>&copy; 2026 Thomas Pulickal Joseph. Crafted with passion.</p>
+</footer>
+
+<script>
+// ===== PARTICLE ANIMATION =====
+const canvas = document.getElementById('particles-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let mouse = { x: null, y: null };
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+document.addEventListener('mousemove', (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+});
+
+class Particle {
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedX = (Math.random() - 0.5) * 0.5;
+        this.speedY = (Math.random() - 0.5) * 0.5;
+        this.opacity = Math.random() * 0.5 + 0.2;
+    }
+    update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x > canvas.width) this.x = 0;
+        if (this.x < 0) this.x = canvas.width;
+        if (this.y > canvas.height) this.y = 0;
+        if (this.y < 0) this.y = canvas.height;
+        // Mouse interaction
+        if (mouse.x && mouse.y) {
+            const dx = mouse.x - this.x;
+            const dy = mouse.y - this.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 120) {
+                this.x -= dx * 0.01;
+                this.y -= dy * 0.01;
+            }
+        }
+    }
+    draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(34, 211, 238, ${this.opacity})`;
+        ctx.fill();
+    }
+}
+
+function initParticles() {
+    particles = [];
+    const count = Math.min(80, Math.floor((canvas.width * canvas.height) / 15000));
+    for (let i = 0; i < count; i++) {
+        particles.push(new Particle());
+    }
+}
+initParticles();
+
+function connectParticles() {
+    for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 150) {
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(99, 102, 241, ${0.15 * (1 - dist / 150)})`;
+                ctx.lineWidth = 0.5;
+                ctx.moveTo(particles[i].x, particles[i].y);
+                ctx.lineTo(particles[j].x, particles[j].y);
+                ctx.stroke();
+            }
+        }
+    }
+}
+
+function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => { p.update(); p.draw(); });
+    connectParticles();
+    requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+// ===== TYPING ANIMATION =====
+const phrases = [
+    "Building high-throughput automation platforms",
+    "Real-time control systems specialist",
+    "C# | ASP.NET Core | TwinCAT | Robotics",
+    "Turning hardware specs into scalable software",
+    "30% throughput gains. 40% less downtime."
+];
+let phraseIndex = 0, charIndex = 0, isDeleting = false;
+const typingEl = document.getElementById('typingText');
+
+function typeEffect() {
+    const current = phrases[phraseIndex];
+    if (isDeleting) {
+        charIndex--;
+    } else {
+        charIndex++;
+    }
+    typingEl.innerHTML = current.substring(0, charIndex) + '<span class="cursor"></span>';
+
+    let speed = isDeleting ? 30 : 60;
+    if (!isDeleting && charIndex === current.length) {
+        speed = 2000;
+        isDeleting = true;
+    } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        speed = 500;
+    }
+    setTimeout(typeEffect, speed);
+}
+typeEffect();
+
+// ===== SCROLL ANIMATIONS =====
+const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+        }
+    });
+}, { threshold: 0.1 });
+revealElements.forEach(el => revealObserver.observe(el));
+
+// ===== SKILL BAR ANIMATION =====
+const skillBars = document.querySelectorAll('.skill-bar-fill');
+const skillObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const width = entry.target.getAttribute('data-width');
+            entry.target.style.width = width + '%';
+        }
+    });
+}, { threshold: 0.3 });
+skillBars.forEach(bar => skillObserver.observe(bar));
+
+// ===== COUNTER ANIMATION =====
+const counters = document.querySelectorAll('.counter');
+const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const target = +entry.target.getAttribute('data-target');
+            const duration = 2000;
+            const start = performance.now();
+            function updateCounter(now) {
+                const elapsed = now - start;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                entry.target.textContent = Math.floor(eased * target);
+                if (progress < 1) requestAnimationFrame(updateCounter);
+                else entry.target.textContent = target + (entry.target.getAttribute('data-suffix') || '');
+            }
+            requestAnimationFrame(updateCounter);
+            counterObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.5 });
+counters.forEach(c => counterObserver.observe(c));
+
+// ===== NAV SCROLL EFFECTS =====
+const navbar = document.getElementById('navbar');
+const sections = document.querySelectorAll('section, .section');
+const navLinksAll = document.querySelectorAll('.nav-links a');
+
+window.addEventListener('scroll', () => {
+    // Scroll progress
+    const scrollTop = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    document.getElementById('scrollProgress').style.width = (scrollTop / scrollHeight * 100) + '%';
+
+    // Nav shadow
+    navbar.classList.toggle('scrolled', scrollTop > 50);
+
+    // Active link
+    let current = '';
+    sections.forEach(sec => {
+        if (scrollTop >= sec.offsetTop - 150) {
+            current = sec.getAttribute('id');
+        }
+    });
+    navLinksAll.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+    });
+});
+
+// ===== MOBILE NAV TOGGLE =====
+document.getElementById('navToggle').addEventListener('click', () => {
+    document.getElementById('navLinks').classList.toggle('open');
+});
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        document.getElementById('navLinks').classList.remove('open');
+    });
+});
+</script>
+</body>
+</html>
