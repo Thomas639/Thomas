@@ -98,6 +98,24 @@ body{font-family:'Inter',sans-serif;background:var(--bg-dark);color:var(--text);
 .footer-links a{color:var(--text-muted);font-size:1.5rem;transition:all 0.3s;text-decoration:none}
 .footer-links a:hover{color:var(--accent);transform:translateY(-3px)}
 .footer p{color:var(--text-muted);font-size:0.85rem}
+.ai-section{position:relative;z-index:1;padding:4rem 2rem;max-width:1100px;margin:0 auto;text-align:center}
+.ai-showcase{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;margin-top:3rem}
+.ai-visual{position:relative;width:100%;height:350px;border-radius:20px;background:rgba(15,23,42,0.6);border:1px solid rgba(99,102,241,0.2);overflow:hidden}
+.ai-visual canvas{width:100%;height:100%}
+.ai-text h3{font-family:'Orbitron',sans-serif;font-size:1.5rem;margin-bottom:1rem;color:var(--accent)}
+.ai-text p{color:var(--text-muted);font-size:0.95rem;line-height:1.8;margin-bottom:1rem}
+.ai-metrics{display:flex;gap:1.5rem;margin-top:1.5rem;flex-wrap:wrap}
+.ai-metric{background:rgba(34,211,238,0.05);border:1px solid rgba(34,211,238,0.2);border-radius:12px;padding:1rem 1.5rem;text-align:center;flex:1;min-width:120px;transition:all 0.3s}
+.ai-metric:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 0 20px rgba(34,211,238,0.15)}
+.ai-metric .metric-value{font-family:'Orbitron',sans-serif;font-size:1.5rem;color:var(--accent);display:block}
+.ai-metric .metric-label{font-size:0.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-top:0.3rem;display:block}
+.ai-badge{display:inline-flex;align-items:center;gap:0.5rem;padding:0.4rem 1rem;border-radius:20px;background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.3);color:var(--accent2);font-size:0.8rem;margin-bottom:1rem}
+.ai-badge i{animation:pulse-glow 2s infinite}
+@keyframes pulse-glow{0%,100%{opacity:0.7}50%{opacity:1}}
+@media(max-width:768px){
+.ai-showcase{grid-template-columns:1fr}
+.ai-visual{height:250px}
+}
 @media(max-width:768px){
 .nav-toggle{display:block}
 .nav-links{position:fixed;top:60px;right:-100%;width:70%;height:calc(100vh - 60px);background:rgba(3,7,18,0.98);flex-direction:column;padding:2rem;gap:1.5rem;transition:right 0.3s}
@@ -176,6 +194,39 @@ body{font-family:'Inter',sans-serif;background:var(--bg-dark);color:var(--text);
         <div class="stat-item">
             <h3 class="counter" data-target="8" data-suffix="+">0</h3>
             <p>Languages</p>
+        </div>
+    </div>
+</section>
+
+<section class="ai-section" id="ai-dev">
+    <div class="section-header reveal">
+        <h2>AI-Augmented Engineering</h2>
+        <div class="section-divider"></div>
+        <p>Leveraging AI agents to accelerate software development</p>
+    </div>
+    <div class="ai-showcase">
+        <div class="ai-visual reveal-left">
+            <canvas id="neuralCanvas"></canvas>
+        </div>
+        <div class="ai-text reveal-right">
+            <div class="ai-badge"><i class="fas fa-microchip"></i> AI-Powered Workflow</div>
+            <h3>Smarter, Faster Development</h3>
+            <p>Integrated AI agents into the software development lifecycle for real-time code auditing, automated test generation, and rapid prototyping of complex C# and PHP modules.</p>
+            <p>Maintained strict adherence to enterprise design patterns and security standards while cutting prototyping time in half.</p>
+            <div class="ai-metrics">
+                <div class="ai-metric">
+                    <span class="metric-value">50%</span>
+                    <span class="metric-label">Faster Prototyping</span>
+                </div>
+                <div class="ai-metric">
+                    <span class="metric-value">2x</span>
+                    <span class="metric-label">Sprint Velocity</span>
+                </div>
+                <div class="ai-metric">
+                    <span class="metric-value">AI</span>
+                    <span class="metric-label">Code Auditing</span>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -392,7 +443,9 @@ body{font-family:'Inter',sans-serif;background:var(--bg-dark);color:var(--text);
                 <i class="fas fa-graduation-cap"></i>
                 <h3>Master of Science in Computer Science</h3>
                 <p class="school">University of Houston-Clear Lake</p>
-                <p class="details">May 2023 | Houston, TX | GPA: 3.70 / 4.00</p>
+                <p class="details">May 2023</p>
+                <p class="details">Houston, TX</p>
+                <p class="details">GPA: 3.70 / 4.00</p>
             </div>
         </div>
         <div class="edu-card reveal">
@@ -400,7 +453,9 @@ body{font-family:'Inter',sans-serif;background:var(--bg-dark);color:var(--text);
                 <i class="fas fa-graduation-cap"></i>
                 <h3>B.Tech in Computer Science &amp; Engineering</h3>
                 <p class="school">Jawaharlal Nehru Technological University</p>
-                <p class="details">Sep 2020 | Hyderabad, India | GPA: 7.75 / 10.00</p>
+                <p class="details">Sep 2020</p>
+                <p class="details">Hyderabad, India</p>
+                <p class="details">GPA: 7.75 / 10.00</p>
             </div>
         </div>
         <div class="edu-card reveal">
@@ -650,6 +705,79 @@ document.querySelectorAll('.nav-links a').forEach(link => {
         document.getElementById('navLinks').classList.remove('open');
     });
 });
+
+// ===== NEURAL NETWORK ANIMATION =====
+const neuralCanvas = document.getElementById('neuralCanvas');
+if (neuralCanvas) {
+    const nCtx = neuralCanvas.getContext('2d');
+    function resizeNeural() {
+        neuralCanvas.width = neuralCanvas.parentElement.offsetWidth;
+        neuralCanvas.height = neuralCanvas.parentElement.offsetHeight;
+    }
+    resizeNeural();
+    window.addEventListener('resize', resizeNeural);
+
+    const nodes = [];
+    const layers = [4, 6, 8, 6, 4];
+    const layerSpacing = neuralCanvas.width / (layers.length + 1);
+
+    layers.forEach((count, layerIdx) => {
+        const x = layerSpacing * (layerIdx + 1);
+        for (let i = 0; i < count; i++) {
+            const y = (neuralCanvas.height / (count + 1)) * (i + 1);
+            nodes.push({ x, y, layer: layerIdx, pulse: Math.random() * Math.PI * 2 });
+        }
+    });
+
+    function drawNeural(time) {
+        nCtx.clearRect(0, 0, neuralCanvas.width, neuralCanvas.height);
+
+        // Draw connections
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+                if (nodes[j].layer === nodes[i].layer + 1) {
+                    const pulse = (Math.sin(time * 0.002 + nodes[i].pulse) + 1) / 2;
+                    nCtx.beginPath();
+                    nCtx.strokeStyle = `rgba(34, 211, 238, ${0.08 + pulse * 0.15})`;
+                    nCtx.lineWidth = 0.5 + pulse;
+                    nCtx.moveTo(nodes[i].x, nodes[i].y);
+                    nCtx.lineTo(nodes[j].x, nodes[j].y);
+                    nCtx.stroke();
+
+                    // Traveling data pulse
+                    const t = (Math.sin(time * 0.003 + i * 0.5) + 1) / 2;
+                    const px = nodes[i].x + (nodes[j].x - nodes[i].x) * t;
+                    const py = nodes[i].y + (nodes[j].y - nodes[i].y) * t;
+                    nCtx.beginPath();
+                    nCtx.arc(px, py, 1.5, 0, Math.PI * 2);
+                    nCtx.fillStyle = `rgba(167, 139, 250, ${pulse * 0.6})`;
+                    nCtx.fill();
+                }
+            }
+        }
+
+        // Draw nodes
+        nodes.forEach(node => {
+            const pulse = (Math.sin(time * 0.003 + node.pulse) + 1) / 2;
+            const radius = 4 + pulse * 3;
+
+            // Glow
+            nCtx.beginPath();
+            nCtx.arc(node.x, node.y, radius + 5, 0, Math.PI * 2);
+            nCtx.fillStyle = `rgba(34, 211, 238, ${0.05 + pulse * 0.1})`;
+            nCtx.fill();
+
+            // Node
+            nCtx.beginPath();
+            nCtx.arc(node.x, node.y, radius, 0, Math.PI * 2);
+            nCtx.fillStyle = `rgba(34, 211, 238, ${0.4 + pulse * 0.5})`;
+            nCtx.fill();
+        });
+
+        requestAnimationFrame(drawNeural);
+    }
+    requestAnimationFrame(drawNeural);
+}
 </script>
 </body>
 </html>
