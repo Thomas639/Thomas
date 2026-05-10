@@ -169,7 +169,7 @@ counters.forEach(c => counterObserver.observe(c));
 
 // ===== NAV SCROLL EFFECTS =====
 const navbar = document.getElementById('navbar');
-const sections = document.querySelectorAll('section, .section');
+const sections = document.querySelectorAll('section, .section, .ai-section');
 const navLinksAll = document.querySelectorAll('.nav-links a');
 
 window.addEventListener('scroll', () => {
@@ -181,13 +181,17 @@ window.addEventListener('scroll', () => {
     // Nav shadow
     navbar.classList.toggle('scrolled', scrollTop > 50);
 
-    // Active link
+    // Active link - if at bottom of page, highlight last section
     let current = '';
-    sections.forEach(sec => {
-        if (scrollTop >= sec.offsetTop - 150) {
-            current = sec.getAttribute('id');
-        }
-    });
+    if (scrollTop + window.innerHeight >= document.documentElement.scrollHeight - 50) {
+        current = 'contact';
+    } else {
+        sections.forEach(sec => {
+            if (scrollTop >= sec.offsetTop - 150) {
+                current = sec.getAttribute('id');
+            }
+        });
+    }
     navLinksAll.forEach(link => {
         link.classList.remove('active');
         if (link.getAttribute('href') === '#' + current) link.classList.add('active');
